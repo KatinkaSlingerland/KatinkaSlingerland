@@ -40,21 +40,8 @@ for x in contents:
     print(gevondengetallen)
     keysList = list(gevondengetallen.keys())
     keysList.sort()
-    # print(keysList)
-    # print('eerste')
-    # print(gevondengetallen[keysList[0]])
-    # print('laatste' + str(keysList[len(keysList)-1]))
-    # print(gevondengetallen[keysList[len(keysList)-1]])
     som = str(gevondengetallen[keysList[0]]) + str(gevondengetallen[keysList[len(keysList)-1]])
     print(som)
     totaal += int(som)
 
-    # if eindInt == None and beginInt != None:
-    #     som = str(beginInt) + str(beginInt)
-    #     print('if '+som)
-    # else:
-    #     som = str(beginInt) + str(eindInt)
-    #     print('else ' +som)
-    # totaal += int(som)
-    #
     print(f'totaal{totaal}')
