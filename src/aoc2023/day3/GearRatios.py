@@ -29,7 +29,6 @@ def checkNeighbourOnSpecialChars(T, numrow, numcharStart, numcharEind):
     neighbours.append(getcharacterFromGrid(T, numrow, numcharStart-1))
 
     for i in range(numcharStart-1, numcharEind+2):
-        print('char: '+str(T[numrow][i]))
         neighbours.append(getcharacterFromGrid(T, numrow-1, i))
         neighbours.append(getcharacterFromGrid(T, numrow+1, i))
 
@@ -61,6 +60,15 @@ for numrow, row in enumerate(T, start=0):
             if startPositie != -1:
                 eindPositie = numchar
             volledigGetal+=char
+            if eindPositie == len(row)-1 :
+                print('YO ' + volledigGetal + ' ' + str(startPositie) + ' ' + str(eindPositie))
+                specialNeighbour = checkNeighbourOnSpecialChars(T, numrow, startPositie, eindPositie)
+                print('speciale buurman? ' + volledigGetal + str(specialNeighbour))
+                if specialNeighbour:
+                    totaal += int(volledigGetal)
+
+                volledigGetal = ''
+                startPositie = -1
         except:
             if startPositie != -1:
                 print('YO ' + volledigGetal + ' ' + str(startPositie) + ' ' + str(eindPositie))
