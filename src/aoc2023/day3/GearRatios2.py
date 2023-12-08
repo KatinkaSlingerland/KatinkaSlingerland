@@ -24,10 +24,10 @@ def getcharacterFromGrid(T, top, left):
 
 def addToDictionary(key, value):
     if key in stars:
-        stars[key] *= int(value)
+        stars[key].append(int(value))
         completeSums.append(key)
     else:
-        stars[key] = int(value)
+        stars[key] = [int(value)]
 
 def checkNeighbourOnSpecialChars(T, numrow, numcharStart, numcharEind):
     specialChar = False
@@ -58,14 +58,14 @@ def checkNeighbourOnSpecialChars(T, numrow, numcharStart, numcharEind):
     char = getcharacterFromGrid(T, numrow, numcharEind+1)
     neighbours.append(char)
     if char == '*':
-        addToDictionary(str(numrow)+'k'+str(numcharStart+1), int(volledigGetal))
+        addToDictionary(str(numrow)+'k'+str(numcharEind+1), int(volledigGetal))
     print(neighbours)
 
     for neighbour in neighbours :
         try:
             int(neighbour)
         except:
-            if neighbour!='.':
+            if neighbour=='*':
                 specialChar=True
 
     return specialChar
@@ -84,23 +84,22 @@ for numrow, row in enumerate(T, start=0):
             if startPositie != -1:
                 eindPositie = numchar
             volledigGetal+=char
+            # komt ie op het eind van de regel uit, moet hij ook stoppen met verder zoeken
             if eindPositie == len(row)-1 :
-                print('YO ' + volledigGetal + ' ' + str(startPositie) + ' ' + str(eindPositie))
-                specialNeighbour = checkNeighbourOnSpecialChars(T, numrow, startPositie, eindPositie)
-
-                volledigGetal = ''
-                startPositie = -1
+                raise Exception("Einde van de regel bereikt, buren zoeken aub")
         # is het geen getal, dan is het getal compleet en kan je de buurkarakters gaan opvragen, rondom
         except:
             if startPositie != -1:
-                print('YO ' + volledigGetal + ' ' + str(startPositie) + ' ' + str(eindPositie))
+                print('Getal gevonden: ' + volledigGetal)
                 specialNeighbour = checkNeighbourOnSpecialChars(T, numrow, startPositie, eindPositie)
+                print('sterretje als buurman? ' + str(specialNeighbour))
 
                 volledigGetal=''
                 startPositie=-1
 
-for complete in completeSums :
-    totaal+=stars[complete]
+for complete in completeSums:
+    sum=stars[complete][0]*stars[complete][1]
+    totaal+=sum
 print(completeSums)
 print(stars)
 print(totaal)
